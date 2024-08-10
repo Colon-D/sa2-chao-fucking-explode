@@ -1,0 +1,2 @@
+﻿add_subdirectory(mod_loader_common)
+add_subdirectory(sa2_mod_loader)
