@@ -220,27 +220,34 @@ void delete_chao_from_save_file(ObjectMaster& chao) {
 }
 
 void explode_chao(ObjectMaster& chao) {
+	chao_user_data[&chao].explode_timer.reset();
 	create_explosion(chao.Data1.Entity->Position);
 	if (config.play_jingle) {
 		PlayJingle(reinterpret_cast<char*>(0x12f5944));
 	}
-	if (config.permadeath) {
+	switch (config.death_style) {
+	case death_style::nothing:
+		break;
+	case death_style::permanent:
 		// seems to work with Chao Races too? It'll probably be fine.
 		delete_chao_from_save_file(chao);
-	}
-	switch (CurrentChaoArea) {
-	case ChaoArea::ChaoArea_Race:
-		// game crashes if race chao is deleted.
-		// game crashes if camera is at inf and the race it quit.
+		[[fallthrough]];
+	case death_style::temporary:
+		switch (CurrentChaoArea) {
+		case ChaoArea::ChaoArea_Race:
+			// game crashes if race chao is deleted.
+			// game crashes if camera is at inf and the race it quit.
 
-		// chao doesn't move if behaviour is manually set to pitfall
-		set_chao_behaviour(&chao, chao_behaviour::pitfall_or_jump_scared);
-		// doesn't render most of the chao. Their emotionball and shadow still
-		// does though :(
-		chao.DisplaySub = nullptr;
-		break;
-	default:
-		chao.MainSub = DeleteObject_;
+			// chao doesn't move if behaviour is manually set to pitfall
+			set_chao_behaviour(&chao, chao_behaviour::pitfall_or_jump_scared);
+			// doesn't render most of the chao. Their emotionball and shadow still
+			// does though :(
+			chao.DisplaySub = nullptr;
+			break;
+		default:
+			chao.MainSub = DeleteObject_;
+			break;
+		}
 		break;
 	}
 }
@@ -254,7 +261,12 @@ void elapse_time() {
 					chao_user_data[chao].prev_behaviour
 					== chao_behaviour::thrown_into_departure_machine
 				) {
-					erase_chao_in_departure_machine();
+					// only really changes chao spawn position on exit, and
+					// whether you can delete the chao in the machine, so not
+					// too important I don't think
+					if (config.death_style != death_style::nothing) {
+						erase_chao_in_departure_machine();
+					}
 				}
 			}
 
@@ -270,6 +282,8 @@ std::uint32_t* set_chao_behaviour(
 	chao_behaviour behaviour,
 	const std::uint32_t a3
 ) {
+	std::cout << "chao: " << chao << ", behaviour: " << static_cast<int>(behaviour) << '\n';
+
 	// +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 	// | BEGIN UGLY REIMPLEMENTATION OF ORIGINAL FUNCTION! |
 	// +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
@@ -347,7 +361,7 @@ std::uint32_t* set_chao_behaviour(
 		}
 	}
 	// if primed and changing state to something else
-	else if (const auto& explode_timer = chao_user_data.explode_timer) {
+	else if (auto& explode_timer = chao_user_data.explode_timer) {
 		explode_chao(*chao);
 	}
 

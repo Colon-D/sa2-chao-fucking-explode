@@ -2,8 +2,10 @@
 <ConfigSchema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonicretro.org">
 	<Groups>
 		<Group name="Main">
-			<Property name="Permadeath" type="bool" defaultvalue="false" alwaysinclude="true">
-				<HelpText>Chao are IRREVERSIBLY deleted from your Save File after they explode.</HelpText>
+			<Property name="Death Style" type="Death Style" defaultvalue="Temporary" alwaysinclude="true">
+				<HelpText>Nothing: Chao remains after explosion.
+Temporary: Chao is removed until Garden is reloaded.
+Perminant: Chao are IRREVERSIBLY deleted from your Save File after they explode.</HelpText>
 			</Property>
 			<Property name="Play Jingle" type="bool" defaultvalue="false" alwaysinclude="true">
 				<HelpText>Plays "chao_g_dead.adx" when a chao explodes.</HelpText>
@@ -214,4 +216,11 @@
 			</Property>
 		</Group>
 	</Groups>
+	<Enums>
+		<Enum name="Death Style">
+			<EnumMember name="Nothing"/>
+			<EnumMember name="Temporary"/>
+			<EnumMember name="Permanent"/>
+		</Enum>
+	</Enums>
 </ConfigSchema>

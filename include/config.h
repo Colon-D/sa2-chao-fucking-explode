@@ -22,8 +22,14 @@ struct hit_chao {
 	float dizziness{};
 };
 
+enum class death_style {
+	nothing,
+	temporary,
+	permanent
+};
+
 struct config {
-	bool permadeath{};
+	death_style death_style{};
 	bool play_jingle{};
 	bool chain_explosions{};
 

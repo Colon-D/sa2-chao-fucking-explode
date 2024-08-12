@@ -5,11 +5,18 @@
 void config::load(const std::filesystem::path& path) {
 	IniFile ini_file{ path / "config.ini" };
 	if (const auto* const main_ini = ini_file.getGroup("Main")) {
-		permadeath = main_ini->getBool("Permadeath");
-		if (permadeath) {
-			std::cout << "+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+\n";
-			std::cout << "| Permadeath is enabled. Your chao WILL die. |\n";
-			std::cout << "+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+\n";
+		const auto death_style_str = main_ini->getString("Death Style");
+		if (death_style_str == "Nothing") {
+			death_style = death_style::nothing;
+		} else if (death_style_str == "Temporary") {
+			death_style = death_style::temporary;
+		} else if (death_style_str == "Permanent") {
+			death_style = death_style::permanent;
+		}
+		if (death_style == death_style::permanent) {
+			std::cout << "+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+\n";
+			std::cout << "| Death Style = Permanent. Your Chao WILL die. |\n";
+			std::cout << "+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+\n";
 		}
 		play_jingle = main_ini->getBool("Play Jingle");
 		chain_explosions = main_ini->getBool("Chain Explosions");
@@ -71,7 +78,7 @@ void config::load(const std::filesystem::path& path) {
 		explosion_sources[chao_behaviour::trip_in_race].load(
 			exp_src_ini, "Race: Trip"
 		);
-		explosion_sources[chao_behaviour::failed_puzzle].load(
+		explosion_sources[chao_behaviour::failed_puzzle_bonk].load(
 			exp_src_ini, "Race: Failed Puzzle"
 		);
 		explosion_sources[chao_behaviour::pitfall_or_jump_scared].load(
