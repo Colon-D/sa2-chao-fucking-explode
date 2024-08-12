@@ -282,8 +282,6 @@ std::uint32_t* set_chao_behaviour(
 	chao_behaviour behaviour,
 	const std::uint32_t a3
 ) {
-	std::cout << "chao: " << chao << ", behaviour: " << static_cast<int>(behaviour) << '\n';
-
 	// +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 	// | BEGIN UGLY REIMPLEMENTATION OF ORIGINAL FUNCTION! |
 	// +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
