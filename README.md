@@ -6,8 +6,8 @@ Textures.
 
 Makes Chao fucking Explode under certain conditions. Typically when attacked.
 
-Enable `Permadeath` in the config for a more immersive experience - Disabled by
-default because it irreversably deletes your Chao.
+Set `Death Style` to `Permanent` in the config for a more immersive experience.
+Set to `Temporary` by default because otherwise it irreversably deletes your Chao.
 ⚠️⚠️⚠️ **Back up your save beforehand.** ⚠️⚠️⚠️
 
 ---
