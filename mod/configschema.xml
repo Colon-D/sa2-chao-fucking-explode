@@ -16,40 +16,40 @@ Perminant: Chao are IRREVERSIBLY deleted from your Save File after they explode.
 		</Group>
 		<Group name="Nearby Chao">
 			<Property name="Happiness" type="float" defaultvalue="-15" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Happiness decrease.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Happiness change.</HelpText>
 			</Property>
 			<Property name="Character Like" type="float" defaultvalue="-15" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Character Like decrease.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Character Like change.</HelpText>
 			</Property>
 			<Property name="Character Fear" type="float" defaultvalue="15" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Character Fear increase.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Character Fear change.</HelpText>
 			</Property>
 			<Property name="Anger" type="float" defaultvalue="100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Anger increase.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Anger change.</HelpText>
 			</Property>
 			<Property name="Boredom" type="float" defaultvalue="-100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Boredom decrease.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Boredom change.</HelpText>
 			</Property>
 			<Property name="Fear" type="float" defaultvalue="100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Fear increase.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Fear change.</HelpText>
 			</Property>
 			<Property name="Joy" type="float" defaultvalue="-100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Joy decrease.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Joy change.</HelpText>
 			</Property>
 			<Property name="Mate Desire" type="float" defaultvalue="-100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Mate Desire decrease.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Mate Desire change.</HelpText>
 			</Property>
 			<Property name="Relax" type="float" defaultvalue="-100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Relax decrease.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Relax change.</HelpText>
 			</Property>
 			<Property name="Surprise" type="float" defaultvalue="100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Surprise increase.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Surprise change.</HelpText>
 			</Property>
 			<Property name="Urge to Cry" type="float" defaultvalue="100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Urge of Cry increase.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Urge of Cry change.</HelpText>
 			</Property>
 			<Property name="Energy" type="float" defaultvalue="-100" alwaysinclude="true" minvalue="-100" maxvalue="100">
-				<HelpText>Maximum percent nearby Chao have their Energy decrease.</HelpText>
+				<HelpText>Maximum percent nearby Chao have their Energy change.</HelpText>
 			</Property>
 		</Group>
 		<Group name="Hit Chao">

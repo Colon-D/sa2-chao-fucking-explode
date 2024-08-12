@@ -78,7 +78,9 @@ void create_explosion(NJS_VECTOR position) {
 			const float explosion_ratio =
 				dist < explosion_radius
 				? map(0.f, explosion_radius, 1.f, 0.8f, dist)
-				: map(explosion_radius, 3 * explosion_radius, 0.2f, 0.f, dist);
+				: (std::max)(map(
+					explosion_radius, 3 * explosion_radius, 0.2f, 0.f, dist
+				), 0.f);
 			auto& chao_data_base = *chao->Data1.Chao->ChaoDataBase_ptr;
 			// make sadder
 			apply_ratio(
