@@ -215,6 +215,11 @@ Perminant: Chao are IRREVERSIBLY deleted from your Save File after they explode.
 				<HelpText>Maximum delay on explosion, in frames. -1 is on Behaviour change.</HelpText>
 			</Property>
 		</Group>
+		<Group name="Debug">
+			<Property name="Output" type="bool" defaultvalue="false" alwaysinclude="true">
+				<HelpText>Display Debug Information to the Console Window</HelpText>
+			</Property>
+		</Group>
 	</Groups>
 	<Enums>
 		<Enum name="Death Style">

@@ -85,6 +85,11 @@ void config::load(const std::filesystem::path& path) {
 			exp_src_ini, "Race: Pitfall or Jump Scared"
 		);
 	}
+	if (
+		const auto* const debug_ini = ini_file.getGroup("Debug")
+	) {
+		debug_output = debug_ini->getBool("Output");
+	}
 }
 
 void explosion_source::load(

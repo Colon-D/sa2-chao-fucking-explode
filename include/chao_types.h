@@ -32,9 +32,9 @@ enum class chao_behaviour {
 	trip = 0x562d50,
 	climb = 0x562eb0,
 	fly = 0x5630c0, // fly, my child
-	goto_player = 0x563250, // player used whistle
+	go_to_player = 0x563250, // player used whistle
 	being_called = 0x5634d0, // player used whistle
-	gotoball = 0x563830,
+	go_to_ball = 0x563830,
 	damaged = 0x563eb0,
 	thrown = 0x564320,
 	jump_scared = 0x5647b0, // from the jack n box toy
@@ -52,7 +52,7 @@ enum class chao_behaviour {
 	notice_item = 0x56b480,
 	put_hat = 0x569430,
 	throw_item = 0x569550,
-	goto_item = 0x56ba80,
+	go_to_item = 0x56ba80,
 	watching_tv = 0x598890,
 	watching_radio = 0x598b90,
 	watching_sing = 0x59b3d0,
@@ -63,7 +63,7 @@ enum class chao_behaviour {
 	trumpet = 0x59e120,
 	watching_music = 0x59e710,
 	want_the_hold_fruit = 0x59ea00, // chao begs player holding a fruit
-	goto_hold_fruit = 0x59ed60, // chao goes to player holding a fruit
+	go_to_hold_fruit = 0x59ed60, // chao goes to player holding a fruit
 	hungry = 0x59ed60,
 	starving = 0x59ef40,
 	fear = 0x59f350,

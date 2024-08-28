@@ -1,10 +1,12 @@
-#include "chao_functions.h"
+﻿#include "chao_functions.h"
 #include "extra_math.h"
 #include <unordered_map>
 #include <random>
 #include "globals.h"
 #include <UsercallFunctionHandler.h>
 #include <iostream>
+#include <string>
+#include <array>
 
 // sonic <-> explosion radius is actually 28.f
 constexpr float explosion_radius{ 24.f };
@@ -279,6 +281,58 @@ void elapse_time() {
 	}
 }
 
+std::string decode_chao_char(const char encoded_chao_char) {
+	constexpr std::array<std::string_view, 256> decode_map{
+		std::string_view{ "\0", 1 },  "!",  "\"", "#",  "$",  "%",  "&",  "'",
+		"(",  ")",  "*",  "+",  ",",  "-",  ".",  "/",  "0",  "1",  "2",  "3",
+		"4",  "5",  "6",  "7",  "8",  "9",  ":",  ";",  "<",  "=",  ">",  "?",
+		"@",  "A",  "B",  "C",  "D",  "E",  "F",  "G",  "H",  "I",  "J",  "K",
+		"L",  "M",  "N",  "O",  "P",  "Q",  "R",  "S",  "T",  "U",  "V",  "W",
+		"X",  "Y",  "Z",  "[",  "¥",  "]",  "^",  "_",  "'",  "a",  "b",  "c",
+		"d",  "e",  "f",  "g",  "h",  "i",  "j",  "k",  "l",  "m",  "n",  "o",
+		"p",  "q",  "r",  "s",  "t",  "u",  "v",  "w",  "x",  "y",  "z",  "{",
+		"|",  "}",  "~",  " ",  "À",  "Á",  "Â",  "Ã",  "Ä",  "Å",  "Æ",  "Ç",
+		"È",  "É",  "Ê",  "Ë",  "Ì",  "Í",  "Î",  "Ï",  "Ð",  "Ñ",  "Ò",  "Ó",
+		"Ô",  "Õ",  "Ö",  "¿",  "Ø",  "Ù",  "Ú",  "Û",  "Ü",  "Ý",  "Þ",  "ß",
+		"à",  "á",  "â",  "ã",  "ä",  "å",  "æ",  "ç",  "è",  "é",  "ê",  "ë",
+		"ì",  "í",  "î",  "ï",  "ð",  "ñ",  "ò",  "ó",  "ô",  "õ",  "ö",  "¡",
+		"ø",  "ù",  "ú",  "û",  "ü",  "ý",  "þ",  "ÿ",  "ァ", "ア", "ィ", "イ",
+		"ゥ", "ウ", "ェ", "エ", "ォ", "オ", "カ", "ガ", "キ", "ギ", "ク", "グ",
+		"ケ", "ゲ", "コ", "ゴ", "サ", "ザ", "シ", "ジ", "ス", "ズ", "セ", "ゼ",
+		"ソ", "ゾ", "タ", "ダ", "チ", "ヂ", "ッ", "ツ", "ヅ", "テ", "デ", "ト",
+		"ド", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "バ", "パ", "ヒ", "ビ", "ピ",
+		"フ", "ブ", "プ", "ヘ", "ベ", "ペ", "ホ", "ボ", "ポ", "マ", "ミ", "ム",
+		"メ", "モ", "ャ", "ヤ", "ュ", "ユ", "ョ", "ヨ", "ラ", "リ", "ル", "レ",
+		"ロ", "ヮ", "ワ", "ﾞ",  "ﾟ",  "ヲ", "ン", "。", "、", "〒", "・", "★",
+		"♀",  "♂",  "♪",  "…",  "「", "」", "ヴ", " "
+	};
+	const auto encoded_chao_character_u8 =
+		static_cast<std::uint8_t>(encoded_chao_char);
+	std::string decoded_chao_character{
+		decode_map[static_cast<std::size_t>(encoded_chao_character_u8)]
+	};
+	return decoded_chao_character;
+}
+
+std::string decode_chao_name(
+	const char* const encoded_chao_name,
+	const std::size_t maximum_length
+) {
+	std::string decoded_chao_name{};
+	for (
+		std::size_t char_index{ 0 };
+		char_index < maximum_length;
+		++char_index
+	) {
+		const auto encoded_chao_char = encoded_chao_name[char_index];
+		if (encoded_chao_char == '\0') {
+			break;
+		}
+		decoded_chao_name += decode_chao_char(encoded_chao_name[char_index]);
+	}
+	return decoded_chao_name;
+}
+
 std::uint32_t* set_chao_behaviour(
 	ObjectMaster* const chao,
 	chao_behaviour behaviour,
@@ -333,6 +387,23 @@ std::uint32_t* set_chao_behaviour(
 	// +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 	// | END UGLY REIMPLEMENTATION OF ORIGINAL FUNCTION! |
 	// +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+
+	if (config.debug_output) {
+		std::cout <<
+			"Chao Fucking Explode::set_chao_behaviour:'\n"
+			"\tchao: "
+			<< decode_chao_name(chao->Data1.Chao->ChaoDataBase_ptr->Name, 7)
+			<< ",\n"
+			"\tbehaviour:\n"
+			"\t\taddress: 0x"
+			<< std::hex << static_cast<int>(behaviour) << ",\n";
+		if (
+			const auto it = behaviour_map.find(behaviour);
+			it != behaviour_map.end()
+		) {
+			std::cout << "\t\tname: " << std::string{ it->second } << ",\n";
+		}
+	}
 
 	auto& chao_user_data = ::chao_user_data[chao];
 	if (chao_user_data.prev_behaviour != behaviour) {

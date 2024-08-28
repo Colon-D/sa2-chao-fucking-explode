@@ -38,5 +38,7 @@ struct config {
 
 	float bounce_from_jump_height_multiplier{};
 
+	bool debug_output{};
+
 	void load(const std::filesystem::path& path);
 };
