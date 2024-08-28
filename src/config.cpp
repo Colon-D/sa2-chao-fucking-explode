@@ -45,6 +45,10 @@ void config::load(const std::filesystem::path& path) {
 			exp_src_ini->getInt("Can Explode: Minimum Happiness");
 		explode_max_happiness =
 			exp_src_ini->getInt("Can Explode: Maximum Happiness");
+		explode_below_happiness =
+			exp_src_ini->getInt("Always explode below Happiness");
+		explode_above_happiness =
+			exp_src_ini->getInt("Always explode above Happiness");
 
 		explosion_sources[chao_behaviour::trip].load(exp_src_ini, "Trip");
 		explosion_sources[chao_behaviour::thrown].load(exp_src_ini, "Thrown");

@@ -407,11 +407,21 @@ std::uint32_t* set_chao_behaviour(
 
 	auto& chao_user_data = ::chao_user_data[chao];
 	if (chao_user_data.prev_behaviour != behaviour) {
+		const auto& chao_data_base = *chao->Data1.Chao->ChaoDataBase_ptr;
+		// if chao is set to always explode at a certain happiness
 		if (
+			chao_data_base.Happiness < config.explode_below_happiness
+			or chao_data_base.Happiness > config.explode_above_happiness
+		) {
+			// needed or infinite loop
+			chao_user_data.prev_behaviour = behaviour;
+			explode_chao(*chao);
+		}
+		// if behaviour is an explosion source
+		else if (
 			const auto it = explosion_sources.find(behaviour);
 			it != explosion_sources.end()
 		) {
-			const auto& chao_data_base = *chao->Data1.Chao->ChaoDataBase_ptr;
 			if (
 				config.explode_min_happiness <= chao_data_base.Happiness
 				and config.explode_max_happiness >= chao_data_base.Happiness

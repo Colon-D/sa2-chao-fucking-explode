@@ -42,6 +42,8 @@ struct config {
 
 	int explode_min_happiness{};
 	int explode_max_happiness{};
+	int explode_below_happiness{};
+	int explode_above_happiness{};
 
 	void load(const std::filesystem::path& path);
 };

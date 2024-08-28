@@ -64,6 +64,12 @@ Perminant: Chao are IRREVERSIBLY deleted from your Save File after they explode.
 			<Property name="Can Explode: Maximum Happiness" type="int" defaultvalue="100" alwaysinclude="true" minvalue="-100" maxvalue="100">
 				<HelpText>Maximum Happiness allowed for a Chao to have the chance to explode.</HelpText>
 			</Property>
+			<Property name="Always explode below Happiness" type="int" defaultvalue="-100" alwaysinclude="true" minvalue="-100" maxvalue="100">
+				<HelpText>Chao will ALWAYS explode when changing ANY behaviour below this happiness.</HelpText>
+			</Property>
+			<Property name="Always explode above Happiness" type="int" defaultvalue="100" alwaysinclude="true" minvalue="-100" maxvalue="100">
+				<HelpText>Chao will ALWAYS explode when changing ANY behaviour above this happiness.</HelpText>
+			</Property>
 			<Property name="Trip" type="float" defaultvalue="5" alwaysinclude="true" minvalue="0" maxvalue="100">
 				<HelpText>Percent chance Chao will explode.</HelpText>
 			</Property>
