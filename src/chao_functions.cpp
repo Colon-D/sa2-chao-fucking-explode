@@ -411,34 +411,40 @@ std::uint32_t* set_chao_behaviour(
 			const auto it = explosion_sources.find(behaviour);
 			it != explosion_sources.end()
 		) {
-			const auto& randomness = it->second;
+			const auto& chao_data_base = *chao->Data1.Chao->ChaoDataBase_ptr;
 			if (
-				percent(rng) < randomness.chance
-				and
-				(
-					randomness.extra_condition == nullptr
-					or randomness.extra_condition(*chao)
-				)
+				config.explode_min_happiness <= chao_data_base.Happiness
+				and config.explode_max_happiness >= chao_data_base.Happiness
 			) {
-				const auto& [begin, end] = randomness.time_range;
-				chao_user_data.explode_timer =
-					(std::min)(
-						chao_user_data.explode_timer.value_or(-1u),
-						static_cast<unsigned>(
-							std::lerp(begin, end, ratio(rng))
-						)
-					);
-				// make unholdable
-				chao->Data1.Entity->Status &= ~Status::Status_Unknown4;
+				const auto& randomness = it->second;
+				if (
+					percent(rng) < randomness.chance
+					and
+					(
+						randomness.extra_condition == nullptr
+						or randomness.extra_condition(*chao)
+					)
+				) {
+					const auto& [begin, end] = randomness.time_range;
+					chao_user_data.explode_timer =
+						(std::min)(
+							chao_user_data.explode_timer.value_or(-1u),
+							static_cast<unsigned>(
+								std::lerp(begin, end, ratio(rng))
+							)
+						);
+					// make unholdable
+					chao->Data1.Entity->Status &= ~Status::Status_Unknown4;
+				}
 			}
 		}
 		// if primed and changing state to something else
 		else if (auto& explode_timer = chao_user_data.explode_timer) {
 			explode_chao(*chao);
 		}
-	}
 
-	chao_user_data.prev_behaviour = behaviour;
+		chao_user_data.prev_behaviour = behaviour;
+	}
 
 	return result;
 }

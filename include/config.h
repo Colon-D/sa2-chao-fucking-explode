@@ -40,5 +40,8 @@ struct config {
 
 	bool debug_output{};
 
+	int explode_min_happiness{};
+	int explode_max_happiness{};
+
 	void load(const std::filesystem::path& path);
 };

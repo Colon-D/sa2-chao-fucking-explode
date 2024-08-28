@@ -41,6 +41,11 @@ void config::load(const std::filesystem::path& path) {
 	if (
 		const auto* const exp_src_ini = ini_file.getGroup("Explosion Sources")
 	) {
+		explode_min_happiness =
+			exp_src_ini->getInt("Can Explode: Minimum Happiness");
+		explode_max_happiness =
+			exp_src_ini->getInt("Can Explode: Maximum Happiness");
+
 		explosion_sources[chao_behaviour::trip].load(exp_src_ini, "Trip");
 		explosion_sources[chao_behaviour::thrown].load(exp_src_ini, "Thrown");
 		explosion_sources[chao_behaviour::damaged].load(
@@ -72,6 +77,9 @@ void config::load(const std::filesystem::path& path) {
 		);
 		bounce_from_jump_height_multiplier =
 			exp_src_ini->getFloat("Bounce from Jump - Height Multiplier");
+		explosion_sources[chao_behaviour::get_pet].load(
+			exp_src_ini, "Pet"
+		);
 		explosion_sources[chao_behaviour::cocoon_reincarnate_or_die].load(
 			exp_src_ini, "Cocoon: Death"
 		);

@@ -58,6 +58,12 @@ Perminant: Chao are IRREVERSIBLY deleted from your Save File after they explode.
 			</Property>
 		</Group>
 		<Group name="Explosion Sources">
+			<Property name="Can Explode: Minimum Happiness" type="int" defaultvalue="-100" alwaysinclude="true" minvalue="-100" maxvalue="100">
+				<HelpText>Minimum Happiness needed for a Chao to have the chance to explode.</HelpText>
+			</Property>
+			<Property name="Can Explode: Maximum Happiness" type="int" defaultvalue="100" alwaysinclude="true" minvalue="-100" maxvalue="100">
+				<HelpText>Maximum Happiness allowed for a Chao to have the chance to explode.</HelpText>
+			</Property>
 			<Property name="Trip" type="float" defaultvalue="5" alwaysinclude="true" minvalue="0" maxvalue="100">
 				<HelpText>Percent chance Chao will explode.</HelpText>
 			</Property>
@@ -177,6 +183,15 @@ Perminant: Chao are IRREVERSIBLY deleted from your Save File after they explode.
 			</Property>
 			<Property name="Bounce from Jump - Height Multiplier" type="float" defaultvalue="1" alwaysinclude="true" minvalue="0">
 				<HelpText>Height multiplier chao must bounce from to have a chance to explode. 1x is just below the height of jumping from above the Chao Stadium door, to landing out the front of the Chao Stadium door. Decreasing this will make Chao able to explode from bouncing from lower heights.</HelpText>
+			</Property>
+			<Property name="Pet" type="float" defaultvalue="0" alwaysinclude="true" minvalue="0" maxvalue="100">
+				<HelpText>Percent chance Chao will explode.</HelpText>
+			</Property>
+			<Property name="Pet - Min Delay" type="int" defaultvalue="60" alwaysinclude="true" minvalue="-1">
+				<HelpText>Minimum delay on explosion, in frames. -1 is on Behaviour change.</HelpText>
+			</Property>
+			<Property name="Pet - Max Delay" type="int" defaultvalue="200" alwaysinclude="true" minvalue="-1">
+				<HelpText>Maximum delay on explosion, in frames. -1 is on Behaviour change.</HelpText>
 			</Property>
 			<Property name="Cocoon: Death" type="float" defaultvalue="50" alwaysinclude="true" minvalue="0" maxvalue="100">
 				<HelpText>Percent chance Chao will explode. Will only explode if they were already going to die.</HelpText>
