@@ -26,6 +26,16 @@ void __cdecl OnFrame() {
 }
 
 __declspec(dllexport)
+void __cdecl OnInput() {
+	if (config.on_z and ControllerPointers[0]->press & Buttons::Buttons_Z) {
+		set_chao_behaviour(
+			&ChaoObjectArray[0],
+			static_cast<chao_behaviour>(reinterpret_cast<int>(config.on_z))
+		);
+	}
+}
+
+__declspec(dllexport)
 ModInfo SA2ModInfo{ ModLoaderVer };
 
 }

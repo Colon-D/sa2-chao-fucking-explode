@@ -45,5 +45,7 @@ struct config {
 	int explode_below_happiness{};
 	int explode_above_happiness{};
 
+	void* on_z{};
+
 	void load(const std::filesystem::path& path);
 };

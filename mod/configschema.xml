@@ -240,6 +240,9 @@ Perminant: Chao are IRREVERSIBLY deleted from your Save File after they explode.
 			<Property name="Output" type="bool" defaultvalue="false" alwaysinclude="true">
 				<HelpText>Display Debug Information to the Console Window</HelpText>
 			</Property>
+			<Property name="On Z, set Chao 0's behaviour" type="string" defaultvalue="0x000000" alwaysinclude="true">
+				<HelpText>On Pressing Z on the Gamepad (SA2 Input Controls mod needed), Chao 0's behaviour will be set to the function at this address (include 0x if hex).</HelpText>
+			</Property>
 		</Group>
 	</Groups>
 	<Enums>

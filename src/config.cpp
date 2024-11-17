@@ -101,6 +101,9 @@ void config::load(const std::filesystem::path& path) {
 		const auto* const debug_ini = ini_file.getGroup("Debug")
 	) {
 		debug_output = debug_ini->getBool("Output");
+		on_z = reinterpret_cast<void*>(
+			std::stoul(debug_ini->getString("On Z, set Chao 0's behaviour"), nullptr, 0)
+		);
 	}
 }
 
