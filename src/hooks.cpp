@@ -22,11 +22,19 @@ void hook() {
 		}
 	};
 
+	constexpr auto ChaoMain_Destructor = 0x52AE70;
+	static FunctionHook<void> chao_main_dtor{
+		ChaoMain_Destructor,
+		[]() {
+			DropRingsFunc_ptr = nullptr;
+
+			chao_main_dtor.Original();
+		}
+	};
+
 	static FunctionHook<void, ObjectMaster*> chao_dtor {
 		Chao_Delete,
 		[](auto* const chao) {
-			DropRingsFunc_ptr = nullptr;
-
 			chao_user_data.erase(chao);
 			return chao_dtor.Original(chao);
 		}
