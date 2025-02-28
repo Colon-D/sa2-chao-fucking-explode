@@ -223,8 +223,12 @@ void delete_chao_from_save_file(ObjectMaster& chao) {
 	}
 }
 
+// if true, will not explode chao on next behaviour change
+bool ignore_next_behaviour_change = false;
 void explode_chao(ObjectMaster& chao) {
-	chao_user_data[&chao].explode_timer.reset();
+	auto& chao_user_data = ::chao_user_data[&chao];
+	chao_user_data.cooldown_timer = 60;
+	chao_user_data.explode_timer.reset();
 	create_explosion(chao.Data1.Entity->Position);
 	if (config.play_jingle) {
 		PlayJingle(reinterpret_cast<char*>(0x12f5944));
@@ -243,6 +247,7 @@ void explode_chao(ObjectMaster& chao) {
 			// game crashes if camera is at inf and the race it quit.
 
 			// chao doesn't move if behaviour is manually set to pitfall
+			ignore_next_behaviour_change = true;
 			set_chao_behaviour(&chao, chao_behaviour::pitfall_or_jump_scared);
 			// doesn't render most of the chao. Their emotionball and shadow still
 			// does though :(
@@ -258,6 +263,11 @@ void explode_chao(ObjectMaster& chao) {
 
 void elapse_time() {
 	for (auto& [chao, data] : chao_user_data) {
+		if (data.cooldown_timer) {
+			if (--*data.cooldown_timer == 0) {
+				data.cooldown_timer.reset();
+			}
+		}
 		if (data.explode_timer) {
 			if (--*data.explode_timer == 0) {
 				explode_chao(*chao);
@@ -405,16 +415,19 @@ std::uint32_t* set_chao_behaviour(
 		}
 	}
 
+	if (ignore_next_behaviour_change) {
+		ignore_next_behaviour_change = false;
+		return result;
+	}
+
 	auto& chao_user_data = ::chao_user_data[chao];
-	if (chao_user_data.prev_behaviour != behaviour) {
+	if (not chao_user_data.cooldown_timer) {
 		const auto& chao_data_base = *chao->Data1.Chao->ChaoDataBase_ptr;
 		// if chao is set to always explode at a certain happiness
 		if (
 			chao_data_base.Happiness < config.explode_below_happiness
 			or chao_data_base.Happiness > config.explode_above_happiness
 		) {
-			// needed or infinite loop
-			chao_user_data.prev_behaviour = behaviour;
 			explode_chao(*chao);
 		}
 		// if behaviour is an explosion source

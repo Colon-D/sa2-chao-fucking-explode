@@ -116,6 +116,10 @@ struct chao_user_data {
 	// when "primed" (below is set), will explode in x number of frames
 	// OR when the behaviour changes.
 	std::optional<unsigned> explode_timer{};
+	// when below is set, will prevent behaviour changes causing the chao to
+	// explode, or above timer being primed. Introduced to allow chao to repeat
+	// actions in races and continue to explode from repeating the same action.
+	std::optional<unsigned> cooldown_timer{};
 };
 
 // in frames
