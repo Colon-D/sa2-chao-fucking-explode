@@ -88,7 +88,7 @@ enum class chao_behaviour {
 	run2 = 0x5a3580,
 	drawing = 0x5ab2c0,
 	come_out_egg = 0x5685f0,
-
+	come_out_egg_alt = 0x5685b0,
 	thrown_birth = 0x563c00,
 	cocoon_reincarnate_or_die = 0x568f60,
 	cocoon_evolve = 0x568d30,

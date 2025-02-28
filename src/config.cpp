@@ -61,6 +61,9 @@ void config::load(const std::filesystem::path& path) {
 		explosion_sources[chao_behaviour::come_out_egg].load(
 			exp_src_ini, "Birth: Natural"
 		);
+		explosion_sources[chao_behaviour::come_out_egg_alt].load(
+			exp_src_ini, "Birth: Natural"
+		); // use same chances as above
 		explosion_sources[chao_behaviour::jump_scared].load(
 			exp_src_ini, "Jump Scared"
 		);
